@@ -1,0 +1,25 @@
+package com.reto4.reto4.repositorio;
+import java.util.List;
+
+
+import com.reto4.reto4.modelo.Client;
+import com.reto4.reto4.repositorio.crud.ClientCrudRepositorio;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class ClientRepositorio {
+    @Autowired
+
+    private ClientCrudRepositorio clientCrudRepositorio;
+
+    public List<Client>obtenerTodo(){
+        return (List<Client>)clientCrudRepositorio.findAll();
+
+    }
+
+    public Client guardar(Client datos){
+        return clientCrudRepositorio.save(datos);
+    }
+}
