@@ -1,0 +1,142 @@
+.contenedor{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 90%;
+    height: 10%;
+    border: black solid 8px;
+    border-radius: 25px;
+    justify-content: space-evenly;
+    
+    margin: auto;
+
+}
+.sesiones{
+    text-align: center;
+    font-size: 30px;
+    border-radius: 100%;
+    border: black solid 8px;
+    width: 200px;
+    height: 200px;
+    background-color: yellow;
+    margin: 30px;
+    
+}
+.sesiones>p{
+    padding-top: 28%;
+    color: white;
+}
+.se1{
+   background-color: #845ec2;
+}
+.se2{
+    background-color: #d65db1;
+}
+.se3{
+    background-color: #ff6f91;
+}
+.se4{
+    background-color: #ff9671;
+}
+.se5{
+    background-color: #ffc75f;
+}
+a{
+    text-decoration: none;
+}
+body{
+    box-sizing: border-box;
+}
+table {
+    table-layout: fixed;
+    width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+table, td,th,tr{
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+
+button{
+    border: 1px solid white;
+    padding: 5px 30px;
+    border-radius: 5px;
+    font-size:15px;
+    font-weight: bold;
+    margin: 0;
+    
+}
+#registrar{
+    background-color: #198765;
+    color: white;
+}
+#registrar:hover{
+    background-color: #1c5a46;
+    color: white;
+}
+input,select,label{
+    margin-right: 10px;
+    margin-bottom: 30px;
+    font-size:14px;
+}
+select{
+    width: 150px;
+}
+#recargar{
+    padding: 5px 7px;
+    background-color: #5d9b9b;
+    color: white;
+    margin-bottom: 15px;
+}
+#recargar:hover{
+    background-color: #4a7c7c;    
+}
+#editar,#actualizar{
+    margin-left : 5px;
+color: white;
+background-color: #FBBA00;
+}
+#actualizar:hover,#editar:hover{
+    background-color: #F59D0E;
+}
+#eliminar{
+    margin-left : 5px;
+color: white;
+background-color: #ff6961;
+}
+#eliminar:hover{
+    background-color: #C23B22;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+  }
+  
+  li {
+    float: left;
+    
+  }
+  
+  li:last-child {
+    border-right: none;
+  }
+  
+  li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  li a:hover:not(.active) {
+    background-color: #111;
+  }
+  
+  .active {
+    background-color: #04AA6D;
+  }
