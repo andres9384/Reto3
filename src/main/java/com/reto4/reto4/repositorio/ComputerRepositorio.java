@@ -1,6 +1,7 @@
 package com.reto4.reto4.repositorio;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.reto4.reto4.modelo.Computer;
 import com.reto4.reto4.repositorio.crud.ComputerCrudRepositorio;
@@ -23,6 +24,14 @@ public class ComputerRepositorio {
   
     public Computer guardar(Computer datos){
         return computerCrudRepositorio.save(datos);
+    }
+
+    public Optional<Computer>obtenerComputador(int id){
+        return computerCrudRepositorio.findById(id);
+    }
+
+    public void  delete(Computer dato){
+        computerCrudRepositorio.delete(dato);
     }
     
 }

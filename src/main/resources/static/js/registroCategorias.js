@@ -59,7 +59,7 @@ $(document).ready(function () {
           $("#category").append("<td>" + categoria.name + "</td>");
           $("#category").append("<td>" + categoria.description + "</td>");
           $("#category").append(
-            '<td ><button id="eliminar" onclick="eliminarCliente(' +
+            '<td ><button id="eliminar" onclick="eliminarCategoria(' +
               categoria.id +
               ')">Eliminar</button><button  id="editar" onclick="obtenerInformacion(' +
               categoria.id +
@@ -74,89 +74,99 @@ $(document).ready(function () {
     });
   }
   
-  // function eliminarCliente(idComputador) {
-  //   var datos = {
-  //     id: idComputador,
-  //   };
+  function eliminarCategoria(idCategoria) {
+    console.log(idCategoria);
+    var datos = {
+      id: idCategoria,
+    };
   
-  //   var datosEnviar = JSON.stringify(datos);
+    var datosEnviar = JSON.stringify(datos);
   
-  //   $.ajax({
-  //     dataType: "JSON",
-  //     data: datosEnviar,
-  //     url: "https://ga0076687dcad1a-reto1.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/client/client",
-  //     type: "DELETE",
-  //     contentType: "application/JSON",
-  //     success: function (respuesta) {
-  //       console.log("Eliminado");
-  //     },
-  //     error: function (respuesta) {
-  //       console.log("No se a podido eliminar");
-  //     },
-  //     complete: function (respuesta) {
-  //       tablaCliente();
-  //     },
-  //   });
-  // }
+    $.ajax({
+      
+      type: "DELETE",
+      dataType: "jsonp",
+      // contentType: "application/json; charset=utf8",
+      // dataType: "JSON",
+      url: "http://129.159.52.217:8080/api/Category/"+idCategoria,
+      
+      // contentType: "application/JSON",
+      success: function (respuesta) {
+        console.log("Eliminado");
+
+      },
+      error: function (respuesta) {
+        console.log("No se a podido eliminar");
+        console.log(respuesta);
+      },
+      complete: function (respuesta) {
+        tablaCategoria();
+      },
+    });
+  }
 
 
-  // function obtenerInformacion(idElemento) {
-  //   $("#registrar").hide();
-  //   $("#actualizar").show();
-  //   $.ajax({
-  //     dataType: "JSON",
+  function obtenerInformacion(idElemento) {
+    $("#registrar").hide();
+    $("#actualizar").show();
+
+    $.ajax({
+      url: "http://129.159.52.217:8080/api/Category/"+idElemento,
+      type: "GET",
+      dataType: "JSON",
+
       
       
-  //     url: "https://ga0076687dcad1a-reto1.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/client/client/" +
-  //       idElemento,
-  //     type: "GET",
-  //     success: function (respuesta) {
-  //       console.log(respuesta);
-  //       var cliente = respuesta.items[0];
+      
+      
+      success: function (respuesta) {
+        console.log(respuesta);
+        var categoria = respuesta;
      
-  //       $("#id").val(cliente.id);
-  //       $("#id").prop("disabled",true);
-  //       $("#name").val(cliente.name);
-  //       $("#email").val(cliente.email);
-  //       $("#age").val(cliente.age);
-  //     },
-  //     error: function (jqXHR, textStatus, errorThrown) {},
-  //   });
-  // }
+        $("#id").val(categoria.id);
+        $("#id").prop("disabled",true);
+        $("#name").val(categoria.name);
+        $("#description").val(categoria.description);
+      
+      },
+      error: function (jqXHR, textStatus, errorThrown) {},
+    });
+  }
 
-  // function actualizarComputador() {
-  //   datos = {
+  function actualizarCategoria() {
+    datos = {
         
-  //     id: $("#id").val(),
-  //     name: $("#name").val(),
-  //     email: $("#email").val(),
-  //     age: $("#age").val()
-  //   };
-  //   var datosEnviar = JSON.stringify(datos);
+      id: $("#id").val(),   
+      name : $("#name").val(),
+      description :$("#description").val()
+    };
+    var datosEnviar = JSON.stringify(datos);
   
-  //   $.ajax({
-  //     dataType: "JSON",
-  //     data: datosEnviar,
-  //     url: "https://ga0076687dcad1a-reto1.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/client/client",
-  //     type: "PUT",
-  //     contentType: "application/JSON",
-  //     success: function (respuesta) {
-  //       console.log("Actualizado");
-  //     },
-  //     error: function (respuesta) {
-  //       console.log("No se a podido actualizar");
-  //     },
-  //     complete: function (respuesta) {
+    $.ajax({
+
+      type: "PUT",
+      contentType: "application/json; charset=utf8",
+      dataType: "JSON",
+      data: datosEnviar,
+      url: "http://129.159.52.217:8080/api/Category/update",
+
+      success: function (respuesta) {
+        console.log("Actualizado");
+      },
+      error: function (respuesta) {
+        console.log("No se a podido actualizar");
+      },
+      complete: function (respuesta) {
        
-  //       $("#registrar").show();
-  //       $("#actualizar").hide();
-  //       $("#id").val(""),
-  //       $("#id").prop("disabled",false);
-  //         $("#name").val(""),
-  //         $("#email").val(""),
-  //         $("#age").val(""),
+        $("#registrar").show();
+        $("#actualizar").hide();
+        $("#id").val(""),
+        $("#id").prop("disabled",false);
+          $("#name").val(""),
+          $("#description").val(""),
+     
   
-  //         tablaCliente();
-  //     },
-  //   });
-  // }
+          tablaCategoria()
+      },
+    });
+  }

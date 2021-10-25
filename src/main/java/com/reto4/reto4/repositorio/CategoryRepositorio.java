@@ -1,7 +1,7 @@
 package com.reto4.reto4.repositorio;
 
 import java.util.List;
-
+import java.util.Optional;
 
 import com.reto4.reto4.modelo.Category;
 
@@ -23,4 +23,12 @@ public class CategoryRepositorio {
     public Category guardarCategoria(Category datos){
         return categoryCrudRepositorio.save(datos);
     }
+    public Optional<Category>obtenerCategoria(int id){
+        return categoryCrudRepositorio.findById(id);
+    }
+
+    public void  delete(Category dato){
+        categoryCrudRepositorio.delete(dato);
+    }
+
 }

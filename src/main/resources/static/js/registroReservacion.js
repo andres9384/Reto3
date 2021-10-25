@@ -103,7 +103,7 @@ $(document).ready(function () {
           $("#reservaciones").append("<td>" + reservacion.client.name + "</td>");
           $("#reservaciones").append("<td>" + reservacion.computer.name + "</td>");
           $("#reservaciones").append(
-            '<td ><button id="eliminar" onclick="eliminarCliente(' +
+            '<td ><button id="eliminar" onclick="eliminarReservacion(' +
             reservacion.idReservation +
               ')">Eliminar</button><button  id="editar" onclick="obtenerInformacion(' +
               reservacion.idReservation +
@@ -118,89 +118,89 @@ $(document).ready(function () {
     });
   }
   
-  // function eliminarCliente(idComputador) {
-  //   var datos = {
-  //     id: idComputador,
-  //   };
+  function eliminarReservacion(idReservacion) {
+    var datos = {
+      id: idReservacion,
+    };
   
-  //   var datosEnviar = JSON.stringify(datos);
+    var datosEnviar = JSON.stringify(datos);
   
-  //   $.ajax({
-  //     dataType: "JSON",
-  //     data: datosEnviar,
-  //     url: "https://ga0076687dcad1a-reto1.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/client/client",
-  //     type: "DELETE",
-  //     contentType: "application/JSON",
-  //     success: function (respuesta) {
-  //       console.log("Eliminado");
-  //     },
-  //     error: function (respuesta) {
-  //       console.log("No se a podido eliminar");
-  //     },
-  //     complete: function (respuesta) {
-  //       tablaCliente();
-  //     },
-  //   });
-  // }
+    $.ajax({
+      type: "DELETE",
+      dataType: "jsonp",
+      url: "http://129.159.52.217:8080/api/Reservation/"+idReservacion,
+      
+      contentType: "application/JSON",
+      success: function (respuesta) {
+        console.log("Eliminado");
+      },
+      error: function (respuesta) {
+        console.log("No se a podido eliminar");
+      },
+      complete: function (respuesta) {
+        tablaReservacion();
+
+      },
+    });
+  }
 
 
-  // function obtenerInformacion(idElemento) {
-  //   $("#registrar").hide();
-  //   $("#actualizar").show();
-  //   $.ajax({
-  //     dataType: "JSON",
-      
-      
-  //     url: "https://ga0076687dcad1a-reto1.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/client/client/" +
-  //       idElemento,
-  //     type: "GET",
-  //     success: function (respuesta) {
-  //       console.log(respuesta);
-  //       var cliente = respuesta.items[0];
+  function obtenerInformacion(idElemento) {
+    $("#registrar").hide();
+    $("#actualizar").show();
+    $.ajax({
+      dataType: "JSON",
+      url: "http://129.159.52.217:8080/api/Reservation/"+idElemento,      
+      type: "GET",
+      success: function (respuesta) {
+        console.log(respuesta);
+        var mensaje = respuesta;
      
-  //       $("#id").val(cliente.id);
-  //       $("#id").prop("disabled",true);
-  //       $("#name").val(cliente.name);
-  //       $("#email").val(cliente.email);
-  //       $("#age").val(cliente.age);
-  //     },
-  //     error: function (jqXHR, textStatus, errorThrown) {},
-  //   });
-  // }
+        $("#id").val(mensaje.idReservation);
+        $("#id").prop("disabled",true);
+        $("#startDate").val(mensaje.startDate);
+        $("#devolutionDate").val(mensaje.devolutionDate);
+        $("#clientes5").hide();
+        $("#computadores").hide();
+      },
+      error: function (jqXHR, textStatus, errorThrown) {},
+    });
+  }
 
-  // function actualizarComputador() {
-  //   datos = {
+  function actualizarReservacion() {
+    datos = {
         
-  //     id: $("#id").val(),
-  //     name: $("#name").val(),
-  //     email: $("#email").val(),
-  //     age: $("#age").val()
-  //   };
-  //   var datosEnviar = JSON.stringify(datos);
+      idReservation: $("#id").val(),
+      startDate: $("#startDate").val(),
+      devolutionDate: $("#devolutionDate").val(),
+      
+    };
+    var datosEnviar = JSON.stringify(datos);
   
-  //   $.ajax({
-  //     dataType: "JSON",
-  //     data: datosEnviar,
-  //     url: "https://ga0076687dcad1a-reto1.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/client/client",
-  //     type: "PUT",
-  //     contentType: "application/JSON",
-  //     success: function (respuesta) {
-  //       console.log("Actualizado");
-  //     },
-  //     error: function (respuesta) {
-  //       console.log("No se a podido actualizar");
-  //     },
-  //     complete: function (respuesta) {
-       
-  //       $("#registrar").show();
-  //       $("#actualizar").hide();
-  //       $("#id").val(""),
-  //       $("#id").prop("disabled",false);
-  //         $("#name").val(""),
-  //         $("#email").val(""),
-  //         $("#age").val(""),
-  
-  //         tablaCliente();
-  //     },
-  //   });
-  // }
+    $.ajax({
+      type: "PUT",
+      contentType: "application/json; charset=utf8",
+      dataType: "JSON",
+      data: datosEnviar,
+      url: "http://129.159.52.217:8080/api/Reservation/update",
+
+      success: function (respuesta) {
+        console.log("Actualizado");
+      },
+      error: function (respuesta) {
+        console.log("No se a podido actualizar");
+      },
+      complete: function (respuesta) {
+        $("#clientes5").show();
+        $("#computadores").show();
+        $("#registrar").show();
+        $("#actualizar").hide();
+        $("#id").val(""),
+        $("#id").prop("disabled",false);
+        $("#startDate").val(""),
+        $("#devolutionDate").val(""),
+        tablaReservacion();
+
+      },
+    });
+  }

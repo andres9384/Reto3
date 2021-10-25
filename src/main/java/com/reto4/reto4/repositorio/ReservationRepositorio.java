@@ -1,6 +1,7 @@
 package com.reto4.reto4.repositorio;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.reto4.reto4.modelo.Reservation;
 import com.reto4.reto4.repositorio.crud.ReservationCrudRepositorio;
@@ -20,5 +21,13 @@ public class ReservationRepositorio {
 
     public Reservation guardar(Reservation datos){
         return reservationCrudRepositorio.save(datos);
+    }
+
+    public Optional<Reservation>obtenerReservacion(int id){
+        return reservationCrudRepositorio.findById(id);
+    }
+
+    public void  delete(Reservation dato){
+        reservationCrudRepositorio.delete(dato);
     }
 }
