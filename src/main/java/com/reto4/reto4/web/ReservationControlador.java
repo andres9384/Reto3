@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import com.reto4.reto4.modelo.Reservation;
+import com.reto4.reto4.modelo.Reporte.ContReservations;
+import com.reto4.reto4.modelo.Reporte.ContStatus;
 import com.reto4.reto4.servicio.ReservationServicio;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +54,20 @@ public class ReservationControlador {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public boolean eliminarMensaje(@PathVariable("numId")int id){
         return reservationServicio.eliminarReservacion(id);
+    }
+
+    @GetMapping("/report-status")
+    public ContStatus status(){
+        return reservationServicio.estados();
+    }
+
+    @GetMapping("/report-clients")
+    public List<ContReservations> topReservaciones(){
+        return reservationServicio.topReservaciones();
+    }
+
+    @GetMapping("/report-dates/{inicio}/{fin}")
+    public List<Reservation>fechaReservations (@PathVariable("inicio") String inicio,@PathVariable("fin") String fin){
+        return reservationServicio.fechaReservations(inicio, fin);
     }
 }

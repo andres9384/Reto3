@@ -1,9 +1,15 @@
 package com.reto4.reto4.servicio;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import com.reto4.reto4.modelo.Reservation;
+import com.reto4.reto4.modelo.Reporte.ContReservations;
+import com.reto4.reto4.modelo.Reporte.ContStatus;
 import com.reto4.reto4.repositorio.ReservationRepositorio;
 
 
@@ -63,5 +69,35 @@ public class ReservationServicio {
             return true;
         }
         return false;
+    }
+
+    public List<ContReservations>topReservaciones(){
+        return reservationRepositorio.topReservaciones();
+    }
+
+    public ContStatus estados(){
+        List<Reservation> completed= reservationRepositorio.estados("completed");
+        List<Reservation> cancelled= reservationRepositorio.estados("cancelled");
+
+        ContStatus reporteEstados = new ContStatus(completed.size(),cancelled.size());
+        return reporteEstados;
+    }
+    public List<Reservation> fechaReservations(String inicio,String fin){
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        Date start= new Date();
+        Date end= new Date();
+
+        try {
+            start=formato.parse(inicio);
+            end=formato.parse(fin);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if(start.before(end)){
+            return reservationRepositorio.fechasReservacion(start, end);
+        }else{
+            return new ArrayList<>();
+        }
     }
 }
